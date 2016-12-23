@@ -1,10 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-struct node {
-    int data;
-    struct node *next;
-};
+#include "linkedlist.h"
 
 int length(struct node *head) {
     int len = 0;
@@ -15,6 +11,7 @@ int length(struct node *head) {
     return len;
 }
 
+//build a simple linked list with three nodes
 struct node *buildStart() {
     struct node *head = malloc(sizeof(struct node));
     struct node *second  = malloc(sizeof(struct node));
@@ -40,6 +37,7 @@ void printList(struct node *head) {
     printf("\n");
 }
 
+//wrong push code, kept for differentiating the currect one
 void wrongPush(struct node *head, int data) {
     struct node *newNode = malloc(sizeof(struct node));
     newNode->data = data;
@@ -115,6 +113,7 @@ void appendNode(struct node **headRef, int num) {
     }
 }
 
+//appends a new node with the help of the push function
 void appendNodeWithPush(struct node **headRef, int num) {
     struct node *current = *headRef;
 
@@ -194,24 +193,4 @@ struct node *copyListWithPush(struct node *head) {
         current = current->next;
     }
     return newList;
-}
-
-struct node *copyListWithDummyNode() {
-    
-}
-
-int main(void) {
-    printf("%s\n", "build with local ref");
-    struct node *head1 = buildWithLocalRef(6);
-    printList(head1);
-
-    printf("%s\n", "Append nodes to head1 with push");
-    appendNodeWithPush(&head1, 7);
-    appendNodeWithPush(&head1, 100);
-    appendNodeWithPush(&head1, 500);
-    printList(head1);
-
-    printf("%s\n", "copying head1");
-    struct node *head2 = copyListWithPush(head1);
-    printList(head2);
 }
