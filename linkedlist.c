@@ -1,46 +1,12 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 
 struct node {
     int data;
-    struct node* next;
+    struct node *next;
 };
 
-//function definitions
-int length(struct node* head);
-struct node* buildStart();
-void printList(struct node* head);
-void wrongPush(struct node* head, int data);
-void push(struct node** headRef, int data);
-struct node* addAtHead(int* array, int length);
-struct node* buildWithSpecialCase(int num);
-struct node* buildWithDummyNode(int num);
-struct node* buildWithLocalRef(int num);
-void appendNode(struct node** headRef, int num);
-void appendNodeWithPush(struct node** headRef, int num);
-struct node* copyListA(struct node* head);
-struct node* copyListB(struct node* head);
-struct node* copyListWithPush(struct node* head);
-//function definitions
-
-int main(void) {
-    printf("%s\n", "build with local ref");
-    struct node* head1 = buildWithLocalRef(6);
-    printList(head1);
-
-    printf("%s\n", "Append nodes to head1 with push");
-    appendNodeWithPush(&head1, 7);
-    appendNodeWithPush(&head1, 100);
-    appendNodeWithPush(&head1, 500);
-    printList(head1);
-
-    printf("%s\n", "copying head1");
-    struct node* head2 = copyListWithPush(head1);
-    printList(head2);
-}
-
-int length(struct node* head) {
+int length(struct node *head) {
     int len = 0;
     while(head != NULL) {
         head = head->next;
@@ -49,10 +15,10 @@ int length(struct node* head) {
     return len;
 }
 
-struct node* buildStart() {
-    struct node* head = malloc(sizeof(struct node));
-    struct node* second  = malloc(sizeof(struct node));
-    struct node* third = malloc(sizeof(struct node));
+struct node *buildStart() {
+    struct node *head = malloc(sizeof(struct node));
+    struct node *second  = malloc(sizeof(struct node));
+    struct node *third = malloc(sizeof(struct node));
 
     head->data = 1; 
     head->next = second;
@@ -66,31 +32,31 @@ struct node* buildStart() {
     return head;
 }
 
-void printList(struct node* head) {
+void printList(struct node *head) {
     while(head != NULL) {
-        printf("%d ", head->data); // *(head).data == head->data
+        printf("%d ", head->data); // *(head).data = head->data
         head = head->next;
     }
     printf("\n");
 }
 
-void wrongPush(struct node* head, int data) {
-    struct node* newNode = malloc(sizeof(struct node));
+void wrongPush(struct node *head, int data) {
+    struct node *newNode = malloc(sizeof(struct node));
     newNode->data = data;
     newNode->next = head;
     head = newNode;
 }
 
-void push(struct node** headRef, int data) {
-    struct node* newNode = malloc(sizeof(struct node));
+void push(struct node **headRef, int data) {
+    struct node *newNode = malloc(sizeof(struct node));
     newNode->data = data;
     newNode->next = *headRef;
     *headRef = newNode;
 }
 
 //constructs a new linked list from the array by adding elements to the head
-struct node* addAtHead(int* array, int length) {
-    struct node* head = NULL;
+struct node *addAtHead(int *array, int length) {
+    struct node *head = NULL;
     int i;
     for(i = 0; i < length; i++) {
         push(&head, *array++); // push(&head, array[i]);
@@ -98,10 +64,10 @@ struct node* addAtHead(int* array, int length) {
     return head;
 }
 
-struct node* buildWithSpecialCase(int num) {
-    struct node* head = NULL;
+struct node *buildWithSpecialCase(int num) {
+    struct node *head = NULL;
     push(&head, 1);
-    struct node* tail = head;
+    struct node *tail = head;
     int i;
     for(i = 2; i <= num; i++) {
         push(&tail->next, i);
@@ -110,9 +76,9 @@ struct node* buildWithSpecialCase(int num) {
     return head;
 }
 
-struct node* buildWithDummyNode(int num) {
+struct node *buildWithDummyNode(int num) {
     struct node dummy;
-    struct node* tail = &dummy;
+    struct node *tail = &dummy;
     dummy.next = NULL;
     int i;
     for(i = 1; i <= num; i++) {
@@ -122,20 +88,20 @@ struct node* buildWithDummyNode(int num) {
     return dummy.next;
 }
 
-struct node* buildWithLocalRef(int num) {
-    struct node* head = NULL;
-    struct node** lastPtrRef = &head;
+struct node *buildWithLocalRef(int num) {
+    struct node *head = NULL;
+    struct node **lastPtrRef = &head;
     int i;
     for(i = 1; i <= num; i++) {
         push(lastPtrRef, i);
-        lastPtrRef = &((*lastPtrRef)->next);        
+        lastPtrRef = &((*lastPtrRef)->next);    
     }
     return head;
 }
 
-void appendNode(struct node** headRef, int num) {
-    struct node* current = *headRef;
-    struct node* newNode = malloc(sizeof(struct node));
+void appendNode(struct node **headRef, int num) {
+    struct node *current = *headRef;
+    struct node *newNode = malloc(sizeof(struct node));
     newNode->data = num;
 
     if (current == NULL) {
@@ -149,8 +115,8 @@ void appendNode(struct node** headRef, int num) {
     }
 }
 
-void appendNodeWithPush(struct node** headRef, int num) {
-    struct node* current = *headRef;
+void appendNodeWithPush(struct node **headRef, int num) {
+    struct node *current = *headRef;
 
     if (current == NULL) {
         push(headRef, num);
@@ -163,10 +129,10 @@ void appendNodeWithPush(struct node** headRef, int num) {
     }
 }
 
-struct node* copyListA(struct node* head) {
-    struct node* current = head;
-    struct node* newList = NULL;
-    struct node* tail = NULL;
+struct node *copyListA(struct node *head) {
+    struct node *current = head;
+    struct node *newList = NULL;
+    struct node *tail = NULL;
 
     if (newList == NULL) {
         newList = malloc(sizeof(struct node));
@@ -177,7 +143,7 @@ struct node* copyListA(struct node* head) {
     }
 
     while(current != NULL) {
-        struct node* newNode = malloc(sizeof(struct node));
+        struct node *newNode = malloc(sizeof(struct node));
         newNode->data = current->data;
         newNode->next = NULL;
         tail->next = newNode;
@@ -187,10 +153,10 @@ struct node* copyListA(struct node* head) {
     return newList;
 }
 
-struct node* copyListB(struct node* head) {
-    struct node* current = head;
-    struct node* newList = NULL;
-    struct node* tail = NULL;
+struct node *copyListB(struct node *head) {
+    struct node *current = head;
+    struct node *newList = NULL;
+    struct node *tail = NULL;
 
     while(current!= NULL) {
         if (newList == NULL) {
@@ -200,7 +166,7 @@ struct node* copyListB(struct node* head) {
             tail = newList;
         }
         else {
-            struct node* newNode = malloc(sizeof(struct node));
+            struct node *newNode = malloc(sizeof(struct node));
             newNode->data = current->data;
             newNode->next = NULL;
             tail->next = newNode;
@@ -211,10 +177,10 @@ struct node* copyListB(struct node* head) {
     return newList; 
 }
 
-struct node* copyListWithPush(struct node* head) {
-    struct node* current = head;
-    struct node* newList = NULL;
-    struct node* tail = NULL;
+struct node *copyListWithPush(struct node *head) {
+    struct node *current = head;
+    struct node *newList = NULL;
+    struct node *tail = NULL;
 
     while(current != NULL) {
         if (newList == NULL) {
@@ -230,6 +196,22 @@ struct node* copyListWithPush(struct node* head) {
     return newList;
 }
 
-struct node* copyListWithDummyNode() {
+struct node *copyListWithDummyNode() {
     
+}
+
+int main(void) {
+    printf("%s\n", "build with local ref");
+    struct node *head1 = buildWithLocalRef(6);
+    printList(head1);
+
+    printf("%s\n", "Append nodes to head1 with push");
+    appendNodeWithPush(&head1, 7);
+    appendNodeWithPush(&head1, 100);
+    appendNodeWithPush(&head1, 500);
+    printList(head1);
+
+    printf("%s\n", "copying head1");
+    struct node *head2 = copyListWithPush(head1);
+    printList(head2);
 }

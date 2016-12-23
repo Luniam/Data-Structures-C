@@ -1,5 +1,6 @@
-CC = cc
+CC = gcc
+FLAGS = -g -Wall
 PROG = bin/linkedlist
 SRCS = linkedlist.c
 $(PROG) : $(SRCS)
-	$(CC) $(SRCS) -o $(PROG)
+	$(CC) $(FLAGS) $(SRCS) -o $(PROG)
