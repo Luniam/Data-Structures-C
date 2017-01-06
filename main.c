@@ -1,18 +1,27 @@
 #include <stdio.h>
 #include "linkedlist.h"
 
+void CountTest() {
+    List myList = buildWithLocalRef(10);
+    appendNode(&myList, 2);
+    appendNode(&myList, 2);
+    int count = Count(myList, 2);
+    // returns 3 since there are 3 '2' in the list
+    printf("%d\n", count);
+}
+
+void GetNthTest() {
+    List myList = buildWithLocalRef(10);
+    //should return 3
+    int lastNode = GetNth(myList, 2);
+    printf("%d\n", lastNode);
+}
+
 int main(void) {
-    printf("%s\n", "build with local ref");
-    struct node *head1 = buildWithLocalRef(6);
-    printList(head1);
+    printf("%s\n", "###Linked List###");
+    printf("%s\n", "count test");
+    CountTest();
 
-    printf("%s\n", "Append nodes to head1 with push");
-    appendNodeWithPush(&head1, 7);
-    appendNodeWithPush(&head1, 100);
-    appendNodeWithPush(&head1, 500);
-    printList(head1);
-
-    printf("%s\n", "copying head1");
-    struct node *head2 = copyListWithPush(head1);
-    printList(head2);
+    printf("%s\n", "getnth test");
+    GetNthTest();
 }

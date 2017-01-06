@@ -1,2 +1,3 @@
+rm bin/main
 make
-bin/linkedlist
+bin/main

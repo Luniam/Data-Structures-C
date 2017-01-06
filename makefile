@@ -1,6 +1,6 @@
 CC = gcc
 FLAGS = -g -Wall
-PROG = bin/linkedlist
+PROG = bin/main
 SRCS = main.c linkedlist.c
 DEPS = main.c linkedlist.c linkedlist.h
 $(PROG) : $(DEPS)

@@ -37,7 +37,7 @@ void printList(struct node *head) {
     printf("\n");
 }
 
-//wrong push code, kept for differentiating the currect one
+//wrong push code
 void wrongPush(struct node *head, int data) {
     struct node *newNode = malloc(sizeof(struct node));
     newNode->data = data;
@@ -45,6 +45,7 @@ void wrongPush(struct node *head, int data) {
     head = newNode;
 }
 
+//pusesh a new node at the beginning of the list
 void push(struct node **headRef, int data) {
     struct node *newNode = malloc(sizeof(struct node));
     newNode->data = data;
@@ -133,13 +134,11 @@ struct node *copyListA(struct node *head) {
     struct node *newList = NULL;
     struct node *tail = NULL;
 
-    if (newList == NULL) {
-        newList = malloc(sizeof(struct node));
-        newList->data = current->data;
-        newList->next = NULL;
-        tail = newList;
-        current = current->next;
-    }
+    newList = malloc(sizeof(struct node));
+    newList->data = current->data;
+    newList->next = NULL;
+    tail = newList;
+    current = current->next;
 
     while(current != NULL) {
         struct node *newNode = malloc(sizeof(struct node));
@@ -193,4 +192,35 @@ struct node *copyListWithPush(struct node *head) {
         current = current->next;
     }
     return newList;
+}
+
+//linked list problems
+
+/*
+Given a list and an int, return the number of times that int occurs
+in the list.
+*/
+int Count(struct node *head, int searchFor) {
+    int count = 0;
+    struct node *current = head;
+    for(current = head; current != NULL; current = current->next) {
+        if (current->data == searchFor) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Given a list and an index, return the data
+// in the nth node of the list. The nodes are numbered from 0.
+// Assert fails if the index is invalid (outside 0..lengh-1).
+int GetNth(struct node* head, int index) {
+    int len = length(head);
+    if(index < 0 || index > len-1) { return -1; } //-1 as error code
+    for(int i = 0; i < index; ++i, head = head->next) {}
+    return head->data;
+}
+
+void DeleteList(struct node **headRef) {
+    struct node *prev;
 }
