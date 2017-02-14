@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "linkedlist.h"
+#include "include/linkedlist.h"
 
 void CountTest() {
     List myList = buildWithLocalRef(10);
