@@ -24,4 +24,8 @@ struct node *copyListB(struct node *head);
 struct node *copyListWithPush(struct node *head);
 int Count(struct node *head, int searchFor);
 int GetNth(struct node* head, int index);
+void DeleteList(struct node **headRef);
+int Pop(struct node** headRef);
+void InsertNth(struct node **headRef, int index, int data);
+void SortedInsert(struct node** headRef, struct node* newNode);
 #endif

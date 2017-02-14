@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "linkedlist.h"
 
 int length(struct node *head) {
@@ -214,7 +215,7 @@ int Count(struct node *head, int searchFor) {
 // Given a list and an index, return the data
 // in the nth node of the list. The nodes are numbered from 0.
 // Assert fails if the index is invalid (outside 0..lengh-1).
-int GetNth(struct node* head, int index) {
+int GetNth(struct node *head, int index) {
     int len = length(head);
     if(index < 0 || index > len-1) { return -1; } //-1 as error code
     for(int i = 0; i < index; ++i, head = head->next) {}
@@ -222,5 +223,63 @@ int GetNth(struct node* head, int index) {
 }
 
 void DeleteList(struct node **headRef) {
-    struct node *prev;
+    struct node *current = *headRef;
+    struct node *next;
+
+    while(current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    *headRef = NULL;
+}
+
+/*
+The opposite of Push(). Takes a non-empty list
+and removes the front node, and returns the data
+which was in that node.
+*/
+int Pop(struct node **headRef) {
+    struct node *head = *headRef;
+    assert(head != NULL);
+    int data = head->data;
+    *headRef = head->next;
+    free(head);
+    return data;
+}
+
+/*
+A more general version of Push().
+Given a list, an index 'n' in the range 0..length,
+and a data element, add a new node to the list so
+that it has the given index.
+*/
+void InsertNth(struct node **headRef, int index, int data) {
+    if (index == 0) {
+        push(headRef, data);
+    }
+    else {
+        struct node *current = *headRef;
+        for (int i = 0; i < index-1; ++i) {
+            assert(current != NULL);
+            current = current->next;
+        }
+        assert(current != NULL);
+        push(&(current->next), data);
+    }
+}
+
+void SortedInsert(struct node** headRef, struct node* newNode) {
+    if (*headRef == NULL || (*headRef)->data > newNode->data) {
+        newNode->next = (*headRef)->next;
+        *headRef = newNode;
+    }
+    else {
+        struct node *current = *headRef;
+        while((current->next != NULL) && (current->next->data <= newNode->data)) {
+            current = current->next;
+        }
+        newNode->next =  current->next;
+        current->next = newNode;
+    }
 }
